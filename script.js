@@ -1,3 +1,5 @@
+// Minify using babel-minify https://jscompress.com/
+
 function getCookie(cookieName) {
     const cookies = document.cookie.split(';'); // split the full cookie string by semicolon to get an array of cookie strings
 
