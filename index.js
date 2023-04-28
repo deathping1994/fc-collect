@@ -125,7 +125,7 @@ async function pageViewTrack() {
 
     var client_id = document.querySelector('#fc-collect-19212').getAttribute('data-client-id');
 
-    fetch("http://localhost:3000/collect", {
+    fetch("https://tr.farziengineer.co/collect", {
         method: "POST",
         credentials: "include",
         headers: {
