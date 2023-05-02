@@ -1,5 +1,7 @@
 // Minify using babel-minify https://jscompress.com/
 
+
+//Helper functions start
 function getCookie(cookieName) {
     const cookies = document.cookie.split(';'); // split the full cookie string by semicolon to get an array of cookie strings
 
@@ -76,9 +78,12 @@ function parseQueryString(queryString) {
 
     return query;
 }
+//Helper functions end
+
+/////////////////////////////////////////////////
 
 
-async function pageViewTrack() {
+(async function pageViewTrack() {
     var clientTimeZone, visitorId, ip, utm;
     try {
         clientTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -135,7 +140,7 @@ async function pageViewTrack() {
             pu: document.referrer || "",
             cu: window.location.href,
             bi: visitorId,
-            ui: getCookie("fc_user_id"),
+            ui: getCookie("user_id"),
             ci: client_id,
             ua: window.navigator.userAgent,
             uip: ip,
@@ -148,7 +153,54 @@ async function pageViewTrack() {
         })
         .then((res) => {
             if (res?.data?.ui) {
-                setCookie("fc_user_id", res?.data?.ui, 365);
+                setCookie("user_id", res?.data?.ui, 365);
+            }
+        })
+        .catch((err) => {
+            console.log("fc collect error:", err);
+        });
+})();//called immediately on script load
+
+
+/////////////////////////////////////////////////
+
+
+//attach other event funtions to the global window object to be called from frontend on actions
+
+window.fc_addtocart = async function ({
+    product_name,
+    product_id,
+    quantity,
+    product_price,
+    currency,
+    variant
+}) {
+
+    var client_id = document.querySelector('#fc-collect-19212').getAttribute('data-client-id');
+
+    fetch("https://tr.farziengineer.co/collect?evt_type=AddToCart", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            ui: getCookie("user_id"),
+            ci: client_id,
+            product_name,
+            product_id,
+            quantity,
+            product_price,
+            currency,
+            variant
+        }),
+    })
+        .then((response) => {
+            return response.json();
+        })
+        .then((res) => {
+            if (res?.data?.ui) {
+                setCookie("user_id", res?.data?.ui, 365);
             }
         })
         .catch((err) => {
@@ -156,4 +208,44 @@ async function pageViewTrack() {
         });
 }
 
-pageViewTrack();
+
+window.fc_purchase = async function ({
+    transaction_id,
+    order_amount,
+    tax,
+    shipping_charge,
+    currency,
+    items
+}) {
+
+    var client_id = document.querySelector('#fc-collect-19212').getAttribute('data-client-id');
+
+    fetch("https://tr.farziengineer.co/collect?evt_type=Purchase", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            ui: getCookie("user_id"),
+            ci: client_id,
+            transaction_id,
+            order_amount,
+            tax,
+            shipping_charge,
+            currency,
+            items
+        }),
+    })
+        .then((response) => {
+            return response.json();
+        })
+        .then((res) => {
+            if (res?.data?.ui) {
+                setCookie("user_id", res?.data?.ui, 365);
+            }
+        })
+        .catch((err) => {
+            console.log("fc collect error:", err);
+        });
+}
