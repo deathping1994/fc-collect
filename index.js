@@ -249,3 +249,39 @@ window.fc_purchase = async function ({
             console.log("fc collect error:", err);
         });
 }
+
+
+window.fc_begin_checkout = async function ({
+    cart_amount,
+    currency,
+    items
+}) {
+
+    var client_id = document.querySelector('#fc-collect-19212').getAttribute('data-client-id');
+
+    fetch("https://tr.farziengineer.co/collect?evt_type=BeginCheckout", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            ui: getCookie("user_id"),
+            ci: client_id,
+            cart_amount,
+            currency,
+            items
+        }),
+    })
+        .then((response) => {
+            return response.json();
+        })
+        .then((res) => {
+            if (res?.data?.ui) {
+                setCookie("user_id", res?.data?.ui, 365);
+            }
+        })
+        .catch((err) => {
+            console.log("fc collect error:", err);
+        });
+}
