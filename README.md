@@ -4,7 +4,7 @@
 
 ## Installation
 
-Use script tag with the specific client id in "data-client-id" attribute
+Use this script tag with the specific client id in "data-client-id" attribute in theme.liquid and thank you page
 
 ```bash
   <script src="https://static.farziengineer.co/fc-collect/root/script.js" id="fc-collect-19212" data-client-id="8f554ef8-b01a-4251-8840-d144c984183d"></script>
@@ -12,7 +12,7 @@ Use script tag with the specific client id in "data-client-id" attribute
     
 ### Add to Cart event
 
-make sure to use this event after the window is loaded (window.onload)
+add this code on addtocart button click. make sure to use this event after the window is loaded (window.onload)
 
 ```bash
   window.fc_addtocart({
@@ -28,7 +28,7 @@ make sure to use this event after the window is loaded (window.onload)
 
 ### Purchase event
 
-make sure to use this event after the window is loaded (window.onload)
+add this code on thank you page. make sure to use this event after the window is loaded (window.onload)
 
 ```bash
   window.fc_purchase({
