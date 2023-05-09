@@ -25,6 +25,24 @@ add this code on addtocart button click. make sure to use this event after the w
     })
 ```
 
+### Begin checkout event
+
+add this code on the proceed to checkout button. make sure to use this event after the window is loaded (window.onload)
+
+```bash
+  window.fc_begin_checkout({
+        cart_amount:"",
+        currency: "INR",
+        items:[{
+            item_id:7752304460032,
+            item_name: "",
+            currency: "INR",
+            price: 100,
+            quantity: 1
+        }]
+    })
+```
+
 
 ### Purchase event
 
