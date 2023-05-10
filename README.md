@@ -36,6 +36,7 @@ add this code on the proceed to checkout button. make sure to use this event aft
         items:[{
             item_id:7752304460032,
             item_name: "",
+            variant:"",
             currency: "INR",
             price: 100,
             quantity: 1
@@ -58,6 +59,7 @@ add this code on thank you page. make sure to use this event after the window is
         items:[{
             item_id:7752304460032,
             item_name: "",
+            variant:"",
             currency: "INR",
             price: 100,
             quantity: 1
