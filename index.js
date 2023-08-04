@@ -103,7 +103,7 @@ function parseQueryString(queryString) {
         ip = sessionStorage.getItem("fc_ip");
     } else {
         try {
-            const res = await fetch("https://qc.brimo.in/ip");
+            const res = await fetch("https://tr.farziengineer.co/ip");
             const data = await res.json();
             ip = data?.ip;
             sessionStorage.setItem("fc_ip", data?.ip);
