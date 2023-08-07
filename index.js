@@ -222,6 +222,20 @@ window.fc_purchase = async function ({
 }) {
 
     var client_id = document.querySelector('#fc-collect-19212').getAttribute('data-client-id');
+    var ip;
+    if (sessionStorage.getItem("fc_ip")) {
+        ip = sessionStorage.getItem("fc_ip");
+    } else {
+        try {
+            const res = await fetch("https://tr.farziengineer.co/ip");
+            const data = await res.json();
+            ip = data?.ip;
+            sessionStorage.setItem("fc_ip", data?.ip);
+        } catch (err) {
+            console.log("err", err);
+            ip = ""
+        }
+    }
 
     fetch("https://tr.farziengineer.co/collect?evt_type=Purchase", {
         method: "POST",
@@ -240,7 +254,8 @@ window.fc_purchase = async function ({
             items,
             coupon_code,
             coustomer_id,
-            pay_method
+            pay_method,
+            uip: ip
         }),
     })
         .then((response) => {
