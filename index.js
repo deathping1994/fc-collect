@@ -217,7 +217,7 @@ window.fc_purchase = async function ({
     currency,
     items,
     coupon_code,
-    coustomer_id,
+    customer_id,
     pay_method,
     discount_amount
 }) {
@@ -254,7 +254,7 @@ window.fc_purchase = async function ({
             currency,
             items,
             coupon_code,
-            coustomer_id,
+            customer_id,
             pay_method,
             discount_amount,
             uip: ip
