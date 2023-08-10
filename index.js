@@ -218,7 +218,8 @@ window.fc_purchase = async function ({
     items,
     coupon_code,
     coustomer_id,
-    pay_method
+    pay_method,
+    discount_amount
 }) {
 
     var client_id = document.querySelector('#fc-collect-19212').getAttribute('data-client-id');
@@ -255,6 +256,7 @@ window.fc_purchase = async function ({
             coupon_code,
             coustomer_id,
             pay_method,
+            discount_amount,
             uip: ip
         }),
     })
