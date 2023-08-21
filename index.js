@@ -123,6 +123,7 @@ function parseQueryString(queryString) {
             queryValue?.utm_campaign
         ) {
             utm = `us=${queryValue?.utm_source}; um=${queryValue?.utm_medium}; uc=${queryValue?.utm_campaign}`;
+            setCookie("fctrack", utm, 180);
         } else {
             utm = "";
         }
@@ -257,7 +258,8 @@ window.fc_purchase = async function ({
             customer_id,
             pay_method,
             discount_amount,
-            uip: ip
+            uip: ip,
+            utm: getCookie("fctrack") || ""
         }),
     })
         .then((response) => {
