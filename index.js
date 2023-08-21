@@ -123,10 +123,10 @@ function parseQueryString(queryString) {
             queryValue?.utm_campaign
         ) {
             utm = `us=${queryValue?.utm_source}; um=${queryValue?.utm_medium}; uc=${queryValue?.utm_campaign}`;
+            setCookie("fctrack", utm, 180);
         } else {
             utm = "";
         }
-        setCookie("fctrack", utm, 180);
     }
 
     var client_id = document.querySelector('#fc-collect-19212').getAttribute('data-client-id');
@@ -259,7 +259,7 @@ window.fc_purchase = async function ({
             pay_method,
             discount_amount,
             uip: ip,
-            utm:getCookie("fctrack")
+            utm:getCookie("fctrack")? getCookie("fctrack"): ""
         }),
     })
         .then((response) => {
