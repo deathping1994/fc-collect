@@ -259,7 +259,7 @@ window.fc_purchase = async function ({
             pay_method,
             discount_amount,
             uip: ip,
-            utm:getCookie("fctrack")? getCookie("fctrack"): ""
+            utm: getCookie("fctrack") || ""
         }),
     })
         .then((response) => {
