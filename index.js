@@ -126,6 +126,7 @@ function parseQueryString(queryString) {
         } else {
             utm = "";
         }
+        setCookie("fctrack", utm, 180);
     }
 
     var client_id = document.querySelector('#fc-collect-19212').getAttribute('data-client-id');
@@ -257,7 +258,8 @@ window.fc_purchase = async function ({
             customer_id,
             pay_method,
             discount_amount,
-            uip: ip
+            uip: ip,
+            utm:getCookie("fctrack")
         }),
     })
         .then((response) => {
