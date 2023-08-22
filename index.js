@@ -121,9 +121,7 @@ function parseQueryString(queryString) {
         queryValue?.utm_medium ||
         queryValue?.utm_campaign
     ) {
-        utm = (queryValue?.utm_source ? `us=${queryValue.utm_source};` : '') +
-            (queryValue?.utm_medium ? `um=${queryValue.utm_medium};` : '') +
-            (queryValue?.utm_campaign ? `uc=${queryValue.utm_campaign}` : '');
+        utm = `us=${queryValue?.utm_source}; um=${queryValue?.utm_medium}; uc=${queryValue?.utm_campaign}`;
         setCookie("fctrack", utm, 180);
     } else {
         utm = getCookie("fctrack") || "";
