@@ -3,24 +3,26 @@
 
 //Helper functions start
 function getCookie(cookieName) {
-    const cookies = document.cookie.split(';'); // split the full cookie string by semicolon to get an array of cookie strings
-
-    for (let i = 0; i < cookies.length; i++) {
-        const cookie = cookies[i].trim(); // trim any whitespace around the cookie string
-        const cookieParts = cookie.split('=');
-
-        if (cookieParts[0] === cookieName) {
-            return cookieParts[1];
-        }
+    let name = cookieName + "=";
+    let decodedCookie = document.cookie;
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return decodeURIComponent(c.substring(name.length, c.length));
+      }
     }
-
-    return undefined; // if the cookie isn't found, return null
-}
+    return undefined;
+  }
 
 function setCookie(cookieName, cookieValue, expirationDays) {
     const d = new Date();
     d.setTime(d.getTime() + (expirationDays * 24 * 60 * 60 * 1000));
     const expires = "expires=" + d.toUTCString();
+    cookieValue=encodeURIComponent(cookieValue)
     document.cookie = cookieName + "=" + cookieValue + ";" + expires + ";path=/";
 }
 
@@ -113,21 +115,18 @@ function parseQueryString(queryString) {
         }
     }
 
-    if (getCookie("fctrack")) {
-        utm = getCookie("fctrack");
+    const queryValue = parseQueryString(window.location.search);
+    if (
+        queryValue?.utm_source ||
+        queryValue?.utm_medium ||
+        queryValue?.utm_campaign
+    ) {
+        utm = `us=${queryValue?.utm_source}; um=${queryValue?.utm_medium}; uc=${queryValue?.utm_campaign}`;
+        setCookie("fctrack", utm, 180);
     } else {
-        const queryValue = parseQueryString(window.location.search);
-        if (
-            queryValue?.utm_source ||
-            queryValue?.utm_medium ||
-            queryValue?.utm_campaign
-        ) {
-            utm = `us=${queryValue?.utm_source}; um=${queryValue?.utm_medium}; uc=${queryValue?.utm_campaign}`;
-            setCookie("fctrack", utm, 180);
-        } else {
-            utm = "";
-        }
+        utm = getCookie("fctrack") || "";
     }
+
 
     var client_id = document.querySelector('#fc-collect-19212').getAttribute('data-client-id');
 
