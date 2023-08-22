@@ -15,7 +15,7 @@ function getCookie(cookieName) {
         return decodeURIComponent(c.substring(name.length, c.length));
       }
     }
-    return "";
+    return undefined;
   }
 
 function setCookie(cookieName, cookieValue, expirationDays) {
@@ -125,7 +125,6 @@ function parseQueryString(queryString) {
         setCookie("fctrack", utm, 180);
     } else {
         utm = getCookie("fctrack") || "";
-        setCookie("fctrack", utm, 180);
     }
 
 
