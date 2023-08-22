@@ -8,6 +8,23 @@ function getCookie(cookieName) {
     for (let i = 0; i < cookies.length; i++) {
         const cookie = cookies[i].trim(); // trim any whitespace around the cookie string
         const cookieParts = cookie.split('=');
+        
+        if(cookieName==='fctrack' && cookieParts[0]===cookieName){
+            let res='';
+            if(cookieParts[0]===cookieName){
+                res+=`${cookieParts[1]}=${cookieParts[2]}`;
+            }
+            let b=cookies[i+1]?.trim()?.split('=')
+            if(b && (b[0]=='uc' || b[0]=='um')){
+                res+=`; ${b[0]}=${b[1]}`
+            }
+            let c=cookies[i+2]?.trim()?.split('=')
+            if(c && (c[0]=='uc' || c[0]=='um')){
+                res+=`; ${c[0]}=${c[1]}`
+            }
+
+            return res;
+        }
 
         if (cookieParts[0] === cookieName) {
             return cookieParts[1];
